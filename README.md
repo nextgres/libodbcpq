@@ -1,4 +1,4 @@
-# MySQL Client Library Driver for ODBC
+# PostgreSQL Client Library Driver for ODBC
 
-This document describes the MySQL Client Library Driver for ODBC and how it can be used to migrate applications from MySQL to another ODBC-accessible database.
+This document describes the PostgreSQL Client Library Driver for ODBC, libodbcpq, and how it can be used to migrate applications from PostgreSQL to another ODBC-accessible database.
 
