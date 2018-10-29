@@ -1,0 +1,537 @@
+/* ------------------------------------------------------------------------- */
+/* CFG(section, name, default)                                               */
+/* ------------------------------------------------------------------------- */
+
+/* Section default */
+CFG(default, log_level, "4")
+CFG(default, dlopen, NULL)
+
+/* Section my_init */
+CFG(my_init, log_level, "default")
+CFG(my_init, dlsym, NULL)
+
+/* Section mysql_affected_rows */
+CFG(mysql_affected_rows, log_level, "default")
+CFG(mysql_affected_rows, dlsym, NULL)
+
+/* Section mysql_autocommit */
+CFG(mysql_autocommit, log_level, "default")
+CFG(mysql_autocommit, dlsym, NULL)
+
+/* Section mysql_change_user */
+CFG(mysql_change_user, log_level, "default")
+CFG(mysql_change_user, dlsym, NULL)
+
+/* Section mysql_character_set_name */
+CFG(mysql_character_set_name, log_level, "default")
+CFG(mysql_character_set_name, dlsym, NULL)
+
+/* Section mysql_client_find_plugin */
+CFG(mysql_client_find_plugin, log_level, "default")
+CFG(mysql_client_find_plugin, dlsym, NULL)
+
+/* Section mysql_client_register_plugin */
+CFG(mysql_client_register_plugin, log_level, "default")
+CFG(mysql_client_register_plugin, dlsym, NULL)
+
+/* Section mysql_close */
+CFG(mysql_close, log_level, "default")
+CFG(mysql_close, dlsym, NULL)
+
+/* Section mysql_commit */
+CFG(mysql_commit, log_level, "default")
+CFG(mysql_commit, dlsym, NULL)
+
+/* Section mysql_connect */
+CFG(mysql_connect, log_level, "default")
+CFG(mysql_connect, dlsym, NULL)
+
+/* Section mysql_create_db */
+CFG(mysql_create_db, log_level, "default")
+CFG(mysql_create_db, dlsym, NULL)
+
+/* Section mysql_data_seek */
+CFG(mysql_data_seek, log_level, "default")
+CFG(mysql_data_seek, dlsym, NULL)
+
+/* Section mysql_debug */
+CFG(mysql_debug, log_level, "default")
+CFG(mysql_debug, dlsym, NULL)
+
+/* Section mysql_drop_db */
+CFG(mysql_drop_db, log_level, "default")
+CFG(mysql_drop_db, dlsym, NULL)
+
+/* Section mysql_dump_debug_info */
+CFG(mysql_dump_debug_info, log_level, "default")
+CFG(mysql_dump_debug_info, dlsym, NULL)
+
+/* Section mysql_embedded */
+CFG(mysql_embedded, log_level, "default")
+CFG(mysql_embedded, dlsym, NULL)
+
+/* Section mysql_eof */
+CFG(mysql_eof, log_level, "default")
+CFG(mysql_eof, dlsym, NULL)
+
+/* Section mysql_errno */
+CFG(mysql_errno, log_level, "default")
+CFG(mysql_errno, dlsym, NULL)
+
+/* Section mysql_error */
+CFG(mysql_error, log_level, "default")
+CFG(mysql_error, dlsym, NULL)
+
+/* Section mysql_escape_string */
+CFG(mysql_escape_string, log_level, "default")
+CFG(mysql_escape_string, dlsym, NULL)
+
+/* Section mysql_fetch_field */
+CFG(mysql_fetch_field, log_level, "default")
+CFG(mysql_fetch_field, dlsym, NULL)
+
+/* Section mysql_fetch_field_direct */
+CFG(mysql_fetch_field_direct, log_level, "default")
+CFG(mysql_fetch_field_direct, dlsym, NULL)
+
+/* Section mysql_fetch_fields */
+CFG(mysql_fetch_fields, log_level, "default")
+CFG(mysql_fetch_fields, dlsym, NULL)
+
+/* Section mysql_fetch_lengths */
+CFG(mysql_fetch_lengths, log_level, "default")
+CFG(mysql_fetch_lengths, dlsym, NULL)
+
+/* Section mysql_fetch_row */
+CFG(mysql_fetch_row, log_level, "default")
+CFG(mysql_fetch_row, dlsym, NULL)
+
+/* Section mysql_field_count */
+CFG(mysql_field_count, log_level, "default")
+CFG(mysql_field_count, dlsym, NULL)
+
+/* Section mysql_field_seek */
+CFG(mysql_field_seek, log_level, "default")
+CFG(mysql_field_seek, dlsym, NULL)
+
+/* Section mysql_field_tell */
+CFG(mysql_field_tell, log_level, "default")
+CFG(mysql_field_tell, dlsym, NULL)
+
+/* Section mysql_free_result */
+CFG(mysql_free_result, log_level, "default")
+CFG(mysql_free_result, dlsym, NULL)
+
+/* Section mysql_get_character_set_info */
+CFG(mysql_get_character_set_info, log_level, "default")
+CFG(mysql_get_character_set_info, dlsym, NULL)
+
+/* Section mysql_get_charset_by_name */
+CFG(mysql_get_charset_by_name, log_level, "default")
+CFG(mysql_get_charset_by_name, dlsym, NULL)
+
+/* Section mysql_get_charset_by_nr */
+CFG(mysql_get_charset_by_nr, log_level, "default")
+CFG(mysql_get_charset_by_nr, dlsym, NULL)
+
+/* Section mysql_get_client_info */
+CFG(mysql_get_client_info, log_level, "default")
+CFG(mysql_get_client_info, dlsym, NULL)
+
+/* Section mysql_get_client_version */
+CFG(mysql_get_client_version, log_level, "default")
+CFG(mysql_get_client_version, dlsym, NULL)
+
+/* Section mysql_get_host_info */
+CFG(mysql_get_host_info, log_level, "default")
+CFG(mysql_get_host_info, dlsym, NULL)
+
+/* Section mysql_get_option */
+CFG(mysql_get_option, log_level, "default")
+CFG(mysql_get_option, dlsym, NULL)
+
+/* Section mysql_get_optionv */
+CFG(mysql_get_optionv, log_level, "default")
+CFG(mysql_get_optionv, dlsym, NULL)
+
+/* Section mysql_get_parameters */
+CFG(mysql_get_parameters, log_level, "default")
+CFG(mysql_get_parameters, dlsym, NULL)
+
+/* Section mysql_get_proto_info */
+CFG(mysql_get_proto_info, log_level, "default")
+CFG(mysql_get_proto_info, dlsym, NULL)
+
+/* Section mysql_get_server_info */
+CFG(mysql_get_server_info, log_level, "default")
+CFG(mysql_get_server_info, dlsym, NULL)
+
+/* Section mysql_get_server_name */
+CFG(mysql_get_server_name, log_level, "default")
+CFG(mysql_get_server_name, dlsym, NULL)
+
+/* Section mysql_get_server_version */
+CFG(mysql_get_server_version, log_level, "default")
+CFG(mysql_get_server_version, dlsym, NULL)
+
+/* Section mysql_get_socket */
+CFG(mysql_get_socket, log_level, "default")
+CFG(mysql_get_socket, dlsym, NULL)
+
+/* Section mysql_get_ssl_cipher */
+CFG(mysql_get_ssl_cipher, log_level, "default")
+CFG(mysql_get_ssl_cipher, dlsym, NULL)
+
+/* Section mysql_get_timeout_value */
+CFG(mysql_get_timeout_value, log_level, "default")
+CFG(mysql_get_timeout_value, dlsym, NULL)
+
+/* Section mysql_get_timeout_value_ms */
+CFG(mysql_get_timeout_value_ms, log_level, "default")
+CFG(mysql_get_timeout_value_ms, dlsym, NULL)
+
+/* Section mysql_hex_string */
+CFG(mysql_hex_string, log_level, "default")
+CFG(mysql_hex_string, dlsym, NULL)
+
+/* Section mysql_info */
+CFG(mysql_info, log_level, "default")
+CFG(mysql_info, dlsym, NULL)
+CFG(mysql_info, custom_return_string, NULL)
+
+/* Section mysql_init */
+CFG(mysql_init, log_level, "default")
+CFG(mysql_init, dlsym, NULL)
+
+/* Section mysql_insert_id */
+CFG(mysql_insert_id, log_level, "default")
+CFG(mysql_insert_id, dlsym, NULL)
+
+/* Section mysql_kill */
+CFG(mysql_kill, log_level, "default")
+CFG(mysql_kill, dlsym, NULL)
+
+/* Section mysql_library_end */
+CFG(mysql_library_end, log_level, "default")
+CFG(mysql_library_end, dlsym, NULL)
+
+/* Section mysql_library_init */
+CFG(mysql_library_init, log_level, "default")
+CFG(mysql_library_init, dlsym, NULL)
+
+/* Section mysql_list_dbs */
+CFG(mysql_list_dbs, log_level, "default")
+CFG(mysql_list_dbs, dlsym, NULL)
+
+/* Section mysql_list_fields */
+CFG(mysql_list_fields, log_level, "default")
+CFG(mysql_list_fields, dlsym, NULL)
+
+/* Section mysql_list_processes */
+CFG(mysql_list_processes, log_level, "default")
+CFG(mysql_list_processes, dlsym, NULL)
+
+/* Section mysql_list_tables */
+CFG(mysql_list_tables, log_level, "default")
+CFG(mysql_list_tables, dlsym, NULL)
+
+/* Section mysql_load_plugin */
+CFG(mysql_load_plugin, log_level, "default")
+CFG(mysql_load_plugin, dlsym, NULL)
+
+/* Section mysql_load_plugin_v */
+CFG(mysql_load_plugin_v, log_level, "default")
+CFG(mysql_load_plugin_v, dlsym, NULL)
+
+/* Section mysql_more_results */
+CFG(mysql_more_results, log_level, "default")
+CFG(mysql_more_results, dlsym, NULL)
+
+/* Section mysql_net_field_length */
+CFG(mysql_net_field_length, log_level, "default")
+CFG(mysql_net_field_length, dlsym, NULL)
+
+/* Section mysql_net_read_packet */
+CFG(mysql_net_read_packet, log_level, "default")
+CFG(mysql_net_read_packet, dlsym, NULL)
+
+/* Section mysql_next_result */
+CFG(mysql_next_result, log_level, "default")
+CFG(mysql_next_result, dlsym, NULL)
+
+/* Section mysql_num_fields */
+CFG(mysql_num_fields, log_level, "default")
+CFG(mysql_num_fields, dlsym, NULL)
+
+/* Section mysql_num_rows */
+CFG(mysql_num_rows, log_level, "default")
+CFG(mysql_num_rows, dlsym, NULL)
+
+/* Section mysql_options */
+CFG(mysql_options, log_level, "default")
+CFG(mysql_options, dlsym, NULL)
+
+/* Section mysql_options4 */
+CFG(mysql_options4, log_level, "default")
+CFG(mysql_options4, dlsym, NULL)
+
+/* Section mysql_ping */
+CFG(mysql_ping, log_level, "default")
+CFG(mysql_ping, dlsym, NULL)
+
+/* Section mysql_query */
+CFG(mysql_query, log_level, "default")
+CFG(mysql_query, dlsym, NULL)
+
+/* Section mysql_read_query_result */
+CFG(mysql_read_query_result, log_level, "default")
+CFG(mysql_read_query_result, dlsym, NULL)
+
+/* Section mysql_real_connect */
+CFG(mysql_real_connect, log_level, "default")
+CFG(mysql_real_connect, dlsym, NULL)
+
+/* Section mysql_real_escape_string */
+CFG(mysql_real_escape_string, log_level, "default")
+CFG(mysql_real_escape_string, dlsym, NULL)
+
+/* Section mysql_real_escape_string_quote */
+CFG(mysql_real_escape_string_quote, log_level, "default")
+CFG(mysql_real_escape_string_quote, dlsym, NULL)
+
+/* Section mysql_real_query */
+CFG(mysql_real_query, log_level, "default")
+CFG(mysql_real_query, dlsym, NULL)
+
+/* Section mysql_refresh */
+CFG(mysql_refresh, log_level, "default")
+CFG(mysql_refresh, dlsym, NULL)
+
+/* Section mysql_reload */
+CFG(mysql_reload, log_level, "default")
+CFG(mysql_reload, dlsym, NULL)
+
+/* Section mysql_reset_connection */
+CFG(mysql_reset_connection, log_level, "default")
+CFG(mysql_reset_connection, dlsym, NULL)
+
+/* Section mysql_reset_server_public_key */
+CFG(mysql_reset_server_public_key, log_level, "default")
+CFG(mysql_reset_server_public_key, dlsym, NULL)
+
+/* Section mysql_result_metadata */
+CFG(mysql_result_metadata, log_level, "default")
+CFG(mysql_result_metadata, dlsym, NULL)
+
+/* Section mysql_rollback */
+CFG(mysql_rollback, log_level, "default")
+CFG(mysql_rollback, dlsym, NULL)
+
+/* Section mysql_row_seek */
+CFG(mysql_row_seek, log_level, "default")
+CFG(mysql_row_seek, dlsym, NULL)
+
+/* Section mysql_row_tell */
+CFG(mysql_row_tell, log_level, "default")
+CFG(mysql_row_tell, dlsym, NULL)
+
+/* Section mysql_select_db */
+CFG(mysql_select_db, log_level, "default")
+CFG(mysql_select_db, dlsym, NULL)
+
+/* Section mysql_send_query */
+CFG(mysql_send_query, log_level, "default")
+CFG(mysql_send_query, dlsym, NULL)
+
+/* Section mysql_server_end */
+CFG(mysql_server_end, log_level, "default")
+CFG(mysql_server_end, dlsym, NULL)
+
+/* Section mysql_server_init */
+CFG(mysql_server_init, log_level, "default")
+CFG(mysql_server_init, dlsym, NULL)
+
+/* Section mysql_session_track_get_first */
+CFG(mysql_session_track_get_first, log_level, "default")
+CFG(mysql_session_track_get_first, dlsym, NULL)
+
+/* Section mysql_session_track_get_next */
+CFG(mysql_session_track_get_next, log_level, "default")
+CFG(mysql_session_track_get_next, dlsym, NULL)
+
+/* Section mysql_set_character_set */
+CFG(mysql_set_character_set, log_level, "default")
+CFG(mysql_set_character_set, dlsym, NULL)
+
+/* Section mysql_set_local_infile_default */
+CFG(mysql_set_local_infile_default, log_level, "default")
+CFG(mysql_set_local_infile_default, dlsym, NULL)
+
+/* Section mysql_set_local_infile_handler */
+CFG(mysql_set_local_infile_handler, log_level, "default")
+CFG(mysql_set_local_infile_handler, dlsym, NULL)
+
+/* Section mysql_set_server_option */
+CFG(mysql_set_server_option, log_level, "default")
+CFG(mysql_set_server_option, dlsym, NULL)
+
+/* Section mysql_shutdown */
+CFG(mysql_shutdown, log_level, "default")
+CFG(mysql_shutdown, dlsym, NULL)
+
+/* Section mysql_sqlstate */
+CFG(mysql_sqlstate, log_level, "default")
+CFG(mysql_sqlstate, dlsym, NULL)
+
+/* Section mysql_ssl_set */
+CFG(mysql_ssl_set, log_level, "default")
+CFG(mysql_ssl_set, dlsym, NULL)
+
+/* Section mysql_stat */
+CFG(mysql_stat, log_level, "default")
+CFG(mysql_stat, dlsym, NULL)
+
+/* Section mysql_stmt_affected_rows */
+CFG(mysql_stmt_affected_rows, log_level, "default")
+CFG(mysql_stmt_affected_rows, dlsym, NULL)
+
+/* Section mysql_stmt_attr_get */
+CFG(mysql_stmt_attr_get, log_level, "default")
+CFG(mysql_stmt_attr_get, dlsym, NULL)
+
+/* Section mysql_stmt_attr_set */
+CFG(mysql_stmt_attr_set, log_level, "default")
+CFG(mysql_stmt_attr_set, dlsym, NULL)
+
+/* Section mysql_stmt_bind_param */
+CFG(mysql_stmt_bind_param, log_level, "default")
+CFG(mysql_stmt_bind_param, dlsym, NULL)
+
+/* Section mysql_stmt_bind_result */
+CFG(mysql_stmt_bind_result, log_level, "default")
+CFG(mysql_stmt_bind_result, dlsym, NULL)
+
+/* Section mysql_stmt_close */
+CFG(mysql_stmt_close, log_level, "default")
+CFG(mysql_stmt_close, dlsym, NULL)
+
+/* Section mysql_stmt_data_seek */
+CFG(mysql_stmt_data_seek, log_level, "default")
+CFG(mysql_stmt_data_seek, dlsym, NULL)
+
+/* Section mysql_stmt_errno */
+CFG(mysql_stmt_errno, log_level, "default")
+CFG(mysql_stmt_errno, dlsym, NULL)
+
+/* Section mysql_stmt_error */
+CFG(mysql_stmt_error, log_level, "default")
+CFG(mysql_stmt_error, dlsym, NULL)
+
+/* Section mysql_stmt_execute */
+CFG(mysql_stmt_execute, log_level, "default")
+CFG(mysql_stmt_execute, dlsym, NULL)
+
+/* Section mysql_stmt_fetch */
+CFG(mysql_stmt_fetch, log_level, "default")
+CFG(mysql_stmt_fetch, dlsym, NULL)
+
+/* Section mysql_stmt_fetch_column */
+CFG(mysql_stmt_fetch_column, log_level, "default")
+CFG(mysql_stmt_fetch_column, dlsym, NULL)
+
+/* Section mysql_stmt_field_count */
+CFG(mysql_stmt_field_count, log_level, "default")
+CFG(mysql_stmt_field_count, dlsym, NULL)
+
+/* Section mysql_stmt_free_result */
+CFG(mysql_stmt_free_result, log_level, "default")
+CFG(mysql_stmt_free_result, dlsym, NULL)
+
+/* Section mysql_stmt_init */
+CFG(mysql_stmt_init, log_level, "default")
+CFG(mysql_stmt_init, dlsym, NULL)
+
+/* Section mysql_stmt_insert_id */
+CFG(mysql_stmt_insert_id, log_level, "default")
+CFG(mysql_stmt_insert_id, dlsym, NULL)
+
+/* Section mysql_stmt_more_results */
+CFG(mysql_stmt_more_results, log_level, "default")
+CFG(mysql_stmt_more_results, dlsym, NULL)
+
+/* Section mysql_stmt_next_result */
+CFG(mysql_stmt_next_result, log_level, "default")
+CFG(mysql_stmt_next_result, dlsym, NULL)
+
+/* Section mysql_stmt_num_rows */
+CFG(mysql_stmt_num_rows, log_level, "default")
+CFG(mysql_stmt_num_rows, dlsym, NULL)
+
+/* Section mysql_stmt_param_count */
+CFG(mysql_stmt_param_count, log_level, "default")
+CFG(mysql_stmt_param_count, dlsym, NULL)
+
+/* Section mysql_stmt_param_metadata */
+CFG(mysql_stmt_param_metadata, log_level, "default")
+CFG(mysql_stmt_param_metadata, dlsym, NULL)
+
+/* Section mysql_stmt_prepare */
+CFG(mysql_stmt_prepare, log_level, "default")
+CFG(mysql_stmt_prepare, dlsym, NULL)
+
+/* Section mysql_stmt_reset */
+CFG(mysql_stmt_reset, log_level, "default")
+CFG(mysql_stmt_reset, dlsym, NULL)
+
+/* Section mysql_stmt_result_metadata */
+CFG(mysql_stmt_result_metadata, log_level, "default")
+CFG(mysql_stmt_result_metadata, dlsym, NULL)
+
+/* Section mysql_stmt_row_seek */
+CFG(mysql_stmt_row_seek, log_level, "default")
+CFG(mysql_stmt_row_seek, dlsym, NULL)
+
+/* Section mysql_stmt_row_tell */
+CFG(mysql_stmt_row_tell, log_level, "default")
+CFG(mysql_stmt_row_tell, dlsym, NULL)
+
+/* Section mysql_stmt_send_long_data */
+CFG(mysql_stmt_send_long_data, log_level, "default")
+CFG(mysql_stmt_send_long_data, dlsym, NULL)
+
+/* Section mysql_stmt_sqlstate */
+CFG(mysql_stmt_sqlstate, log_level, "default")
+CFG(mysql_stmt_sqlstate, dlsym, NULL)
+
+/* Section mysql_stmt_store_result */
+CFG(mysql_stmt_store_result, log_level, "default")
+CFG(mysql_stmt_store_result, dlsym, NULL)
+
+/* Section mysql_store_result */
+CFG(mysql_store_result, log_level, "default")
+CFG(mysql_store_result, dlsym, NULL)
+
+/* Section mysql_thread_end */
+CFG(mysql_thread_end, log_level, "default")
+CFG(mysql_thread_end, dlsym, NULL)
+
+/* Section mysql_thread_id */
+CFG(mysql_thread_id, log_level, "default")
+CFG(mysql_thread_id, dlsym, NULL)
+
+/* Section mysql_thread_init */
+CFG(mysql_thread_init, log_level, "default")
+CFG(mysql_thread_init, dlsym, NULL)
+
+/* Section mysql_thread_safe */
+CFG(mysql_thread_safe, log_level, "default")
+CFG(mysql_thread_safe, dlsym, NULL)
+
+/* Section mysql_use_result */
+CFG(mysql_use_result, log_level, "default")
+CFG(mysql_use_result, dlsym, NULL)
+
+/* Section mysql_warning_count */
+CFG(mysql_warning_count, log_level, "default")
+CFG(mysql_warning_count, dlsym, NULL)
+

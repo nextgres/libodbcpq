@@ -1,0 +1,62 @@
+Name: libodbcpq
+Version: @VERSION@
+Release: 1
+Summary: Library to provide generic file data functions
+Group: System Environment/Libraries
+License: LGPL
+Source: %{name}-%{version}.tar.gz
+URL: https://github.com/libyal/libodbcpq
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+@libodbcpq_spec_requires@ @ax_libcdata_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcnotify_spec_requires@ @ax_libcthreads_spec_requires@ @ax_libfcache_spec_requires@
+BuildRequires: gcc @ax_libcdata_spec_build_requires@ @ax_libcerror_spec_build_requires@ @ax_libcnotify_spec_build_requires@ @ax_libcthreads_spec_build_requires@ @ax_libfcache_spec_build_requires@
+
+%description
+Library to provide generic file data functions
+
+%package devel
+Summary: Header files and libraries for developing applications for libodbcpq
+Group: Development/Libraries
+Requires: libodbcpq = %{version}-%{release}
+
+%description devel
+Header files and libraries for developing applications for libodbcpq.
+
+%prep
+%setup -q
+
+%build
+%configure --prefix=/usr --libdir=%{_libdir} --mandir=%{_mandir}
+make %{?_smp_mflags}
+
+%install
+rm -rf %{buildroot}
+%make_install
+
+%clean
+rm -rf %{buildroot}
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%files
+%defattr(644,root,root,755)
+%license COPYING
+%doc AUTHORS README
+%attr(755,root,root) %{_libdir}/*.so.*
+
+%files devel
+%defattr(644,root,root,755)
+%license COPYING
+%doc AUTHORS README ChangeLog
+%{_libdir}/*.a
+%{_libdir}/*.la
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/libodbcpq.pc
+%{_includedir}/*
+%{_mandir}/man3/*
+
+%changelog
+* @SPEC_DATE@ Jonah H. Harris <jonah.harris@gmail.com> @VERSION@-1
+- Auto-generated
+

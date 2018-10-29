@@ -1,0 +1,29 @@
+Source: libodbcpq
+Priority: extra
+Maintainer: Jonah H. Harris <jonah.harris@gmail.com>
+Build-Depends: debhelper (>= 9), dh-autoreconf, pkg-config
+Standards-Version: 3.9.5
+Section: libs
+Homepage: https://github.com/libyal/libodbcpq
+
+Package: libodbcpq
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: libodbcpq-dbg
+Description: Library to provide generic file data functions
+ libodbcpq is a library to provide generic file data functions.
+
+Package: libodbcpq-dbg
+Architecture: any
+Section: debug
+Depends: libodbcpq (= ${binary:Version}), ${misc:Depends}
+Description: Debugging symbols for libodbcpq
+ Debugging symbols for libodbcpq.
+
+Package: libodbcpq-dev
+Section: libdevel
+Architecture: any
+Depends: libodbcpq (= ${binary:Version}), ${misc:Depends}
+Description: Header files and libraries for developing applications for libodbcpq
+ Header files and libraries for developing applications for libodbcpq.
+

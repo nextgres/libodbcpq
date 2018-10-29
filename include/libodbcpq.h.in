@@ -1,0 +1,316 @@
+
+#ifndef LIBODBCMYSQL_H
+#define LIBODBCMYSQL_H
+
+#ifdef WIN32
+# include <windows.h>
+# include <config-win.h>
+#else
+# define STDCALL
+# define __stdcall
+#endif
+#if 0
+#include <sql.h>
+#include <sqlext.h>
+#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <inttypes.h>
+#include <string.h>
+#include <memory.h>
+#include <assert.h>
+#include <dlfcn.h>
+
+
+/* Logging Headers */
+#include "log.h"
+
+/* Static Assertions */
+#include "static_assert.h"
+
+/* MySQL Headers */
+#include <mysql/mysql.h>
+
+/* ========================================================================= */
+/* -- DEFINITIONS ---------------------------------------------------------- */
+/* ========================================================================= */
+
+/* from errmsg.h */
+#define CR_UNKNOWN_ERROR    2000
+#define CR_OUT_OF_MEMORY    2008
+#define CR_SERVER_LOST      2013
+
+#define CR_ODBC_ERROR       9999
+
+/* ========================================================================= */
+/* -- MACROS --------------------------------------------------------------- */
+/* ========================================================================= */
+
+#define NOOP_RETURN_VOID      return
+#define NOOP_RETURN(x)        return (x)
+
+/* ========================================================================= */
+/* -- PRIVATE TYPES -------------------------------------------------------- */
+/* ========================================================================= */
+
+void libodbcpq_init (void);
+
+/* --------------------------- Function Pointers --------------------------- */
+
+typedef my_ulonglong (*libodbcpq_mysql_affected_rows_fptr_t)(MYSQL *mysql);
+typedef my_bool (*libodbcpq_mysql_autocommit_fptr_t)(MYSQL *mysql,
+ my_bool auto_mode);
+typedef my_bool (*libodbcpq_mysql_change_user_fptr_t)(MYSQL *mysql,
+ const char *user,
+ const char *passwd, const char *db);
+typedef const char *(*libodbcpq_mysql_character_set_name_fptr_t)(MYSQL *
+ mysql);
+typedef void (*libodbcpq_mysql_close_fptr_t)(MYSQL *sock);
+typedef my_bool (*libodbcpq_mysql_commit_fptr_t)(MYSQL *mysql);
+typedef MYSQL * (*libodbcpq_mysql_connect_fptr_t)(MYSQL *mysql,
+ const char *host,
+ const char *user, const char *passwd);
+typedef int (*libodbcpq_mysql_create_db_fptr_t)(MYSQL *mysql, const char *DB);
+typedef void (*libodbcpq_mysql_data_seek_fptr_t)(MYSQL_RES *result,
+ my_ulonglong offset);
+typedef void (*libodbcpq_mysql_debug_fptr_t)(const char *debug);
+typedef int (*libodbcpq_mysql_drop_db_fptr_t)(MYSQL *mysql, const char *DB);
+typedef int (*libodbcpq_mysql_dump_debug_info_fptr_t)(MYSQL *mysql);
+typedef my_bool (*libodbcpq_mysql_eof_fptr_t)(MYSQL_RES *res);
+typedef unsigned int (*libodbcpq_mysql_errno_fptr_t)(MYSQL *mysql);
+typedef const char *(*libodbcpq_mysql_error_fptr_t)(MYSQL *mysql);
+typedef unsigned long (*libodbcpq_mysql_escape_string_fptr_t)(char *to,
+ const char *from,
+ unsigned long
+ from_length);
+typedef MYSQL_FIELD *(*libodbcpq_mysql_fetch_field_fptr_t)(
+ MYSQL_RES *result);
+typedef MYSQL_FIELD *(*libodbcpq_mysql_fetch_field_direct_fptr_t)(MYSQL_RES
+ *res,
+ unsigned int
+ fieldnr);
+typedef MYSQL_FIELD *(*libodbcpq_mysql_fetch_fields_fptr_t)(MYSQL_RES *res);
+typedef unsigned long *(*libodbcpq_mysql_fetch_lengths_fptr_t)(MYSQL_RES *
+ result);
+typedef MYSQL_ROW (*libodbcpq_mysql_fetch_row_fptr_t)(MYSQL_RES *result);
+typedef unsigned int (*libodbcpq_mysql_field_count_fptr_t)(MYSQL *mysql);
+typedef MYSQL_FIELD_OFFSET (*libodbcpq_mysql_field_seek_fptr_t)(MYSQL_RES *
+ result,
+ MYSQL_FIELD_OFFSET
+ offset);
+typedef MYSQL_FIELD_OFFSET (*libodbcpq_mysql_field_tell_fptr_t)(MYSQL_RES *
+ res);
+typedef void (*libodbcpq_mysql_free_result_fptr_t)(MYSQL_RES *result);
+typedef void (*libodbcpq_mysql_get_character_set_info_fptr_t)(MYSQL *mysql,
+ MY_CHARSET_INFO *charset);
+typedef const char *(*libodbcpq_mysql_get_client_info_fptr_t)(void);
+typedef unsigned long (*libodbcpq_mysql_get_client_version_fptr_t)(void);
+typedef const char *(*libodbcpq_mysql_get_host_info_fptr_t)(MYSQL *mysql);
+typedef int (*libodbcpq_mysql_get_option_fptr_t)(MYSQL *mysql,
+ enum mysql_option option,
+ const void *arg);
+typedef unsigned int (*libodbcpq_mysql_get_proto_info_fptr_t)(MYSQL *mysql);
+typedef const char *(*libodbcpq_mysql_get_server_info_fptr_t)(MYSQL *mysql);
+typedef unsigned long (*libodbcpq_mysql_get_server_version_fptr_t)(MYSQL *
+ mysql);
+typedef const char *(*libodbcpq_mysql_get_ssl_cipher_fptr_t)(MYSQL *mysql);
+typedef unsigned long (*libodbcpq_mysql_hex_string_fptr_t)(char *to,
+ const char *from,
+ unsigned long from_length);
+typedef const char *(*libodbcpq_mysql_info_fptr_t)(MYSQL *mysql);
+typedef MYSQL *(*libodbcpq_mysql_init_fptr_t)(MYSQL *mysql);
+typedef my_ulonglong (*libodbcpq_mysql_insert_id_fptr_t)(MYSQL *mysql);
+typedef int (*libodbcpq_mysql_kill_fptr_t)(MYSQL *mysql, unsigned long pid);
+typedef void (*libodbcpq_mysql_library_end_fptr_t)(void);
+typedef int (*libodbcpq_mysql_library_init_fptr_t)(int argc, char **argv,
+ char **groups);
+typedef MYSQL_RES *(*libodbcpq_mysql_list_dbs_fptr_t)(MYSQL *mysql,
+ const char *wild);
+typedef MYSQL_RES *(*libodbcpq_mysql_list_fields_fptr_t)(MYSQL *mysql,
+ const char *table,
+ const char *wild);
+typedef MYSQL_RES *(*libodbcpq_mysql_list_processes_fptr_t)(MYSQL *mysql);
+typedef MYSQL_RES *(*libodbcpq_mysql_list_tables_fptr_t)(MYSQL *mysql,
+ const char *wild);
+typedef my_bool (*libodbcpq_mysql_more_results_fptr_t)(MYSQL *mysql);
+typedef int (*libodbcpq_mysql_next_result_fptr_t)(MYSQL *mysql);
+typedef unsigned int (*libodbcpq_mysql_num_fields_fptr_t)(MYSQL_RES *res);
+typedef my_ulonglong (*libodbcpq_mysql_num_rows_fptr_t)(MYSQL_RES *res);
+typedef int (*libodbcpq_mysql_options_fptr_t)(MYSQL *mysql,
+ enum mysql_option option,
+ const void *arg);
+typedef int (*libodbcpq_mysql_options4_fptr_t)(MYSQL *mysql,
+ enum mysql_option option,
+ const void *arg1, const void *arg2);
+typedef int (*libodbcpq_mysql_ping_fptr_t)(MYSQL *mysql);
+typedef int (*libodbcpq_mysql_query_fptr_t)(MYSQL *mysql, const char *q);
+typedef MYSQL *(*libodbcpq_mysql_real_connect_fptr_t)(MYSQL *mysql,
+ const char *host,
+ const char *user,
+ const char *passwd,
+ const char *db,
+ unsigned int port,
+ const char *unix_socket,
+ unsigned long clientflag);
+typedef unsigned long (*libodbcpq_mysql_real_escape_string_fptr_t)(MYSQL *mysql,
+ char *to, const char *from,
+ unsigned long length);
+typedef unsigned long (*libodbcpq_mysql_real_escape_string_quote_fptr_t)(MYSQL *
+ mysql,
+ char *to, const char *from,
+ unsigned long length, char quote);
+typedef int (*libodbcpq_mysql_real_query_fptr_t)(MYSQL *mysql, const char *q,
+ unsigned long length);
+typedef int (*libodbcpq_mysql_refresh_fptr_t)(MYSQL *mysql,
+ unsigned int refresh_options);
+typedef int (*libodbcpq_mysql_reload_fptr_t)(MYSQL *mysql,
+ unsigned int refresh_options);
+typedef int (*libodbcpq_mysql_reset_connection_fptr_t)(MYSQL *mysql);
+typedef void (*libodbcpq_mysql_reset_server_public_key_fptr_t)(void);
+typedef enum enum_resultset_metadata (*libodbcpq_mysql_result_metadata_fptr_t)(
+ MYSQL_RES *result);
+typedef my_bool (*libodbcpq_mysql_rollback_fptr_t)(MYSQL *mysql);
+typedef MYSQL_ROW_OFFSET (*libodbcpq_mysql_row_seek_fptr_t)(MYSQL_RES *
+ result,
+ MYSQL_ROW_OFFSET
+ offset);
+typedef MYSQL_ROW_OFFSET (*libodbcpq_mysql_row_tell_fptr_t)(MYSQL_RES *res);
+typedef int (*libodbcpq_mysql_select_db_fptr_t)(MYSQL *mysql, const char *db);
+typedef void (*libodbcpq_mysql_server_end_fptr_t)(void);
+typedef int (*libodbcpq_mysql_server_init_fptr_t)(int argc, char **argv,
+ char **groups);
+typedef int (*libodbcpq_mysql_session_track_get_first_fptr_t)(MYSQL *mysql,
+ enum enum_session_state_type type,
+ const char **data,
+ size_t *length);
+typedef int (*libodbcpq_mysql_session_track_get_next_fptr_t)(MYSQL *mysql,
+ enum enum_session_state_type type,
+ const char **data,
+ size_t *length);
+typedef int (*libodbcpq_mysql_set_character_set_fptr_t)(MYSQL *mysql,
+ const char *csname);
+typedef void (*libodbcpq_mysql_set_local_infile_default_fptr_t)(MYSQL *mysql);
+typedef void (*libodbcpq_mysql_set_local_infile_handler_fptr_t)(MYSQL *mysql,
+ int (*local_infile_init)(void **, const char *,
+ void *),
+ int (*local_infile_read)(void *, char *,
+ unsigned int),
+ void (*local_infile_end)(void *),
+ int (*local_infile_error)(void *, char *,
+ unsigned int),
+ void *);
+typedef int (*libodbcpq_mysql_set_server_option_fptr_t)(MYSQL *mysql,
+ enum enum_mysql_set_option
+ option);
+typedef int (*libodbcpq_mysql_shutdown_fptr_t)(MYSQL *mysql,
+ enum mysql_enum_shutdown_level
+ shutdown_level);
+typedef const char *(*libodbcpq_mysql_sqlstate_fptr_t)(MYSQL *mysql);
+typedef my_bool (*libodbcpq_mysql_ssl_set_fptr_t)(MYSQL *mysql, const char *key,
+ const char *cert, const char *ca,
+ const char *capath, const char *cipher);
+typedef const char *(*libodbcpq_mysql_stat_fptr_t)(MYSQL *mysql);
+typedef MYSQL_RES *(*libodbcpq_mysql_store_result_fptr_t)(MYSQL *mysql);
+typedef unsigned long (*libodbcpq_mysql_thread_id_fptr_t)(MYSQL *mysql);
+typedef MYSQL_RES *(*libodbcpq_mysql_use_result_fptr_t)(MYSQL *mysql);
+typedef unsigned int (*libodbcpq_mysql_warning_count_fptr_t)(MYSQL *mysql);
+
+#define MYSQL_FPTR(name)                                                        \
+  libodbcpq_dlsym_##name
+
+#define MYSQL_FPTR_TYPE(name)                                                 \
+  (libodbcpq_##name##_fptr_t)
+
+#define MYSQL_FPTR_IS_NOT_NULL(name)                                            \
+  (NULL != MYSQL_FPTR(name))
+
+#define DECLARE_MYSQL_FPTR_EXTERN(name)                                         \
+  extern libodbcpq_##name##_fptr_t libodbcpq_dlsym_##name;
+DECLARE_MYSQL_FPTR_EXTERN(mysql_affected_rows);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_autocommit);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_change_user);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_character_set_name);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_close);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_commit);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_connect);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_create_db);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_data_seek);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_debug);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_drop_db);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_dump_debug_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_eof);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_errno);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_error);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_escape_string);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_fetch_field);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_fetch_field_direct);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_fetch_fields);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_fetch_lengths);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_fetch_row);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_field_count);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_field_seek);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_field_tell);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_free_result);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_character_set_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_client_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_client_version);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_host_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_option);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_proto_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_server_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_server_version);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_get_ssl_cipher);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_hex_string);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_info);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_init);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_insert_id);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_kill);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_library_end);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_library_init);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_list_dbs);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_list_fields);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_list_processes);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_list_tables);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_more_results);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_next_result);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_num_fields);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_num_rows);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_options);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_options4);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_ping);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_query);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_real_connect);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_real_escape_string);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_real_escape_string_quote);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_real_query);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_refresh);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_reload);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_reset_connection);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_reset_server_public_key);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_result_metadata);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_rollback);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_row_seek);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_row_tell);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_select_db);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_server_end);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_server_init);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_session_track_get_first);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_session_track_get_next);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_set_character_set);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_set_local_infile_default);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_set_local_infile_handler);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_set_server_option);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_shutdown);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_sqlstate);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_ssl_set);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_stat);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_store_result);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_thread_id);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_use_result);
+DECLARE_MYSQL_FPTR_EXTERN(mysql_warning_count);
+#undef DECLARE_MYSQL_FPTR_EXTERN
+
+#endif /* LIBODBCMYSQL_H */
+
